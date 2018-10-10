@@ -1,0 +1,25 @@
+
+As of the last edit made to the source code (04 Nov 2014 @ 10:53), my
+assignment works most of the time it's run.  There are two known errors
+and they are outline below.
+
+Bug 1
+======
+Occasionally, the signature verification will detect a signature
+mismatch.  This mismatch will propagate to the end of the program possibly
+causing the incorrect message to be displayed at the end. Because the nonce
+is only one digit in size, there is a chance the value display is actually
+the correct answer because the nonce space is so small.
+
+My guess is that this is due to an overflow in the program when encrypting
+the message (session key + nonce) with Alice's private key creating a
+number that overflows.
+
+Bug 2
+======
+This bug is far more rare, but sometimes a BadPaddingException is thrown
+by the Alice thread when decrypting the AES encrypted message.  The error
+states the final block is not padded properly.  Consequently, the Final
+Result of the program errors well with a NullPointerException.
+
+If the program is run again, chances a good these errors will not reappear.
